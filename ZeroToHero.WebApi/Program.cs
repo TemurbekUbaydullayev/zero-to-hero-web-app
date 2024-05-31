@@ -16,7 +16,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
-//men qoshildim
+//men qoshildim Hojimurod  adfas
 app.MapControllers();
 
 app.Run();
