@@ -1,6 +1,6 @@
 ﻿namespace ZeroToHero.Domain.Entities;
 
-public class Courses : BaseEntity
+public class Course : BaseEntity
 {
     public string Name { get; set; } = string.Empty;
     public decimal Price { get; set; }
