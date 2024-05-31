@@ -1,10 +1,14 @@
-﻿namespace ZeroToHero.Domain.Entities;
+﻿using ZeroToHero.Domain.Enums;
 
-public class Employee
+namespace ZeroToHero.Domain.Entities;
+
+public class Employee : BaseEntity
 {
-    public string FullName { get; set; } = string.Empty;
-    public string Position { get; set; } = string.Empty;
-    public int Salary { get; set; }
-    public DateTime WorkingTime { get; set; }
+    public string FirstName { get; set; } = string.Empty;
+    public string LastName { get; set; } = string.Empty;
+    public string Email { get; set; } = string.Empty;
+    public string Phone { get; set; } = string.Empty;
+    public Role Role { get; set; }
+    public bool IsActive { get; set; }
 
 }
