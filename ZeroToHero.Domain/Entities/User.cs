@@ -1,5 +1,5 @@
 ﻿namespace ZeroToHero.Domain.Entities;
 
-public class User
+public class User : BaseEntity
 {
 }
