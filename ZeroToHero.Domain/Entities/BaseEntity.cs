@@ -1,6 +1,6 @@
 ﻿namespace ZeroToHero.Domain.Entities;
 
-public class BaseEntity
+public abstract class BaseEntity
 {
     public int Id { get; set; }
 }
