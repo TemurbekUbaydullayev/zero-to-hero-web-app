@@ -1,5 +1,9 @@
 using Microsoft.EntityFrameworkCore;
+
+using ZeroToHero.Application.Interfaces;
+
 using ZeroToHero.Application.Common.Helpers;
+
 using ZeroToHero.Data.DbContexts;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,6 +19,8 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("LocalDB"));
     options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
 });
+
+builder.Services.AddTransient<IEmailService, IEmailService>();
 
 var app = builder.Build();
 
