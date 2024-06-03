@@ -1,9 +1,18 @@
+using Microsoft.EntityFrameworkCore;
+using ZeroToHero.Data.DbContexts;
+
 var builder = WebApplication.CreateBuilder(args);
 
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddDbContext<AppDbContext>(options =>
+{
+    options.UseNpgsql(builder.Configuration.GetConnectionString("LocalDB"));
+    options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+});
 
 var app = builder.Build();
 
@@ -16,7 +25,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
-//men qoshildim Hojimurod  adfas
+
 app.MapControllers();
 
 app.Run();
