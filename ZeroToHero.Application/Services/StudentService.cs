@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using AutoMapper;
+using System.Net;
 using ZeroToHero.Application.Common.DTOs.StudentDtos;
 using ZeroToHero.Application.Common.Exceptions;
 using ZeroToHero.Application.Interfaces;
@@ -6,9 +7,12 @@ using ZeroToHero.Data.Interfaces;
 using ZeroToHero.Domain.Entities;
 
 namespace ZeroToHero.Application.Services;
-public class StudentService(IUnitOfWork unitOfWork) : IStudentService
+public class StudentService(IUnitOfWork unitOfWork,
+                            IMapper mapper) 
+    : IStudentService
 {
     private readonly IUnitOfWork _unitOfWork = unitOfWork;
+    private readonly IMapper _mapper = mapper;  
 
     public async Task DeleteAsync(int id)
     {
@@ -20,7 +24,8 @@ public class StudentService(IUnitOfWork unitOfWork) : IStudentService
 
     public async Task<List<StudentDto>> GetAllAsync()
     {
-        throw new NotImplementedException();
+        var students = await _unitOfWork.Students.GetAllAsync();
+        return students.;
     }
 
 
