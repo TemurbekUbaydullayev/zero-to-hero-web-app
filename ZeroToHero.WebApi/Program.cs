@@ -30,10 +30,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-//if (app.Services.GetService<IHttpContextAccessor>() is not null)
-//{
-//    HttpContextHelper.Accessor = app.Services.GetRequiredService<IHttpContextAccessor>();
-//}
+if (app.Services.GetService<IHttpContextAccessor>() is not null)
+{
+    HttpContextHelper.Accessor = app.Services.GetRequiredService<IHttpContextAccessor>();
+}
 
 app.UseHttpsRedirection();
 
