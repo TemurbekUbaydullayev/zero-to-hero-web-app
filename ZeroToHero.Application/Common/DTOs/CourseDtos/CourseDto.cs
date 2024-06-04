@@ -10,5 +10,5 @@ public class CourseDto
     public string Author { get; set; } = string.Empty;
     public int SellCount { get; set; }
     public byte Rank { get; set; }
-    public string Comments { get; set; } = string.Empty;
+    public List<string> Comments { get; set; } = new List<string>();
 }

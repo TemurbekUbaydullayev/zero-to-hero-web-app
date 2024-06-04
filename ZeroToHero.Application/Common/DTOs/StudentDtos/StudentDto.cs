@@ -1,4 +1,7 @@
-﻿namespace ZeroToHero.Application.Common.DTOs.StudentDtos;
+﻿using ZeroToHero.Application.Common.DTOs.CourseDtos;
+using ZeroToHero.Domain.Enums;
+
+namespace ZeroToHero.Application.Common.DTOs.StudentDtos;
 
 public class StudentDto
 {
@@ -6,10 +9,8 @@ public class StudentDto
     public string FirstName { get; set; } = string.Empty;
     public string LastName { get; set; } = string.Empty;
     public DateTime DateOfBirth { get; set; }
-    public string Gender { get; set; } = string.Empty;
+    public Gender Gender { get; set; }
     public string Phone { get; set; } = string.Empty;
     public string Email { get; set; } = string.Empty;
-    public bool IsActive { get; set; }
-    public bool IsVerified { get; set; }
-    public string CourseName { get; set; } = string.Empty;
+    public CourseDto Course { get; set; } = null!;
 }
