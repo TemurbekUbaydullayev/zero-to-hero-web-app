@@ -1,8 +1,8 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace ZeroToHero.Application.Validators;
+namespace ZeroToHero.Application.Common.Helpers;
 
-public static class PasswordValidator
+public static class PasswordHelper
 {
     public static (bool isValid, string message) IsStrong(this string password)
     {

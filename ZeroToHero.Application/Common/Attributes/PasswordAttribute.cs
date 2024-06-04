@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using ZeroToHero.Application.Validators;
+using ZeroToHero.Application.Common.Helpers;
 
 namespace ZeroToHero.Application.Common.Attributes;
 
