@@ -2,11 +2,11 @@
 
 namespace ZeroToHero.Application.Common.Exceptions;
 
-public class StatusCodeExeption : Exception
+public class StatusCodeException : Exception
 {
     public HttpStatusCode StatusCode { get; }
 
-    public StatusCodeExeption(HttpStatusCode code, string message)
+    public StatusCodeException(HttpStatusCode code, string message)
         : base(message)
     {
         StatusCode = code;

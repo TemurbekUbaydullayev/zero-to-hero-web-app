@@ -27,3 +27,4 @@ public class EmailService(IConfiguration config) : IEmailService
         await smtp.DisconnectAsync(true);
     }
 }
+ 
