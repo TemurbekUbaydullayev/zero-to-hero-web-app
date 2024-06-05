@@ -14,7 +14,7 @@ public class ExceptionMiddleware(RequestDelegate next)
         {
             await _next(context);
         }
-        catch (StatusCodeExeption exception)
+        catch (StatusCodeException exception)
         {
             await ClientErrorHandleAsync(context, exception);
         }
@@ -38,7 +38,7 @@ public class ExceptionMiddleware(RequestDelegate next)
         await context.Response.WriteAsync(JsonConvert.SerializeObject(result));
     }
 
-    public async Task ClientErrorHandleAsync(HttpContext context, StatusCodeExeption exeption)
+    public async Task ClientErrorHandleAsync(HttpContext context, StatusCodeException exeption)
     {
         context.Response.ContentType = "application/json";
         var result = new ErrorMessage()
