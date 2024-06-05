@@ -1,10 +1,12 @@
 using Microsoft.EntityFrameworkCore;
-
 using ZeroToHero.Application.Interfaces;
-
 using ZeroToHero.Application.Common.Helpers;
-
 using ZeroToHero.Data.DbContexts;
+using ZeroToHero.Data.Interfaces;
+using ZeroToHero.Data.Repositories;
+using Application.Services;
+using ZeroToHero.Application.Services;
+using ZeroToHero.Application.Common.Mapper;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,7 +22,18 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
 });
 
-builder.Services.AddTransient<IEmailService, IEmailService>();
+// Unit Of Work
+builder.Services.AddTransient<IUnitOfWork, UnitOfWrok>();
+
+// Services
+builder.Services.AddTransient<IEmailService, EmailService>();
+builder.Services.AddTransient<IStudentService, StudentService>();
+builder.Services.AddTransient<IAuthManager, AuthManager>();
+builder.Services.AddTransient<MapperProfile>();
+
+
+//---> Mappers
+builder.Services.AddAutoMapper(typeof(MapperProfile));
 
 var app = builder.Build();
 

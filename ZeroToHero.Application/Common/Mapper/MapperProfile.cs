@@ -11,16 +11,16 @@ public class MapperProfile : Profile
 {
     public MapperProfile()
     {
-        CreateMap<Course, CourseDto>();
-        CreateMap<Course, AddCourseDto>().ReverseMap();
+        CreateMap<Course, AddCourseDto>();
+        CreateMap<Course, CourseDto>().ReverseMap();
 
-        CreateMap<Video, VideoDto>();
-        CreateMap<Video, AddVideoDto>().ReverseMap();
+        CreateMap<Video, AddVideoDto>();
+        CreateMap<Video, VideoDto>().ReverseMap();
 
-        CreateMap<Employee, EmployeeDto>();
-        CreateMap<Employee, AddEmployeeDto>().ReverseMap();
+        CreateMap<Employee, AddEmployeeDto>();
+        CreateMap<Employee, EmployeeDto>().ReverseMap();
 
-        CreateMap<Student, StudentDto>();
-        CreateMap<Student, AddStudentDto>().ReverseMap();
+        CreateMap<AddStudentDto, Student>();
+        CreateMap<Student, StudentDto>().ReverseMap();
     }
 }

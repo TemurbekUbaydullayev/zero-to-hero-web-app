@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
+using System.Globalization;
 using System.Net;
 using ZeroToHero.Application.Common.DTOs.StudentDtos;
 using ZeroToHero.Application.Common.Exceptions;
@@ -7,6 +9,7 @@ using ZeroToHero.Application.Common.Utils;
 using ZeroToHero.Application.Interfaces;
 using ZeroToHero.Data.Interfaces;
 using ZeroToHero.Domain.Entities;
+using static Org.BouncyCastle.Bcpg.Attr.ImageAttrib;
 
 namespace ZeroToHero.Application.Services;
 public class StudentService(IUnitOfWork unitOfWork,
@@ -44,8 +47,11 @@ public class StudentService(IUnitOfWork unitOfWork,
     public async Task RegisterAsync(AddStudentDto dto)
     {
         var student = await _unitOfWork.Students.GetByEmailAsync(dto.Email);
-        if (student is null)
+        if (student is not null)
             throw new StatusCodeException(HttpStatusCode.NotFound, $"{dto.Email} was registered");
+        var entity = _mapper.Map<Student>(dto);
+        entity.DateOfBirth = entity.DateOfBirth.ToUniversalTime();
+        await _unitOfWork.Students.CreateAsync(entity);
     }
 
     public async Task UpdateAsync(UpdateStudentDto dto)
