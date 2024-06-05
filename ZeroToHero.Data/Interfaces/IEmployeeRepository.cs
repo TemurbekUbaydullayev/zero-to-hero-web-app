@@ -4,7 +4,7 @@ namespace ZeroToHero.Data.Interfaces;
 
 public interface IEmployeeRepository : IGenericRepository<Employee>
 {
-    Task<List<Employee>> GetByNameAsync(string name);
+    IQueryable<Employee> GetByNameAsync(string name);
     Task<Employee> GetByPhoneAsync(string phone);
     Task<Employee> GetByEmailAsync(string email);
 }

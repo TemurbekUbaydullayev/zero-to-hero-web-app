@@ -31,11 +31,12 @@ public class EmployeeService(IUnitOfWork unitOfWork,
         await _unitOfWork.Employes.DeleteAsync(employee);
     }
 
-    public async Task<List<EmployeeDto>> GetAllAsync(PaginationParams @params)
+    public async Task<IEnumerable<EmployeeDto>> GetAllAsync(PaginationParams @params)
     {
-        var employees = (await _unitOfWork.Employes.GetAllAsync()).ToPagedListAsync(@params).Result;
+        var employees = await _unitOfWork.Employes.GetAllAsync()
+                                                                    .ToPagedListAsync(@params);
 
-        return employees.Select(p => _mapper.Map<EmployeeDto>(p)).ToList();
+        return employees.Select(p => _mapper.Map<EmployeeDto>(p));
     }
 
     public async Task<EmployeeDto> GetByIdAsync(int id)
@@ -64,7 +65,9 @@ public class EmployeeService(IUnitOfWork unitOfWork,
 
     public async Task<IEnumerable<EmployeeDto>> GetByNameAsync(string name)
     {
-        var employees = await _unitOfWork.Employes.GetByNameAsync(name);
+        var employees = await _unitOfWork.Employes.GetByNameAsync(name)
+                                                                    .ToPagedListAsync(new PaginationParams { PageSize = 0, PageIndex = 0});
+
         return employees.Select(x => _mapper.Map<EmployeeDto>(x)).ToList();
     }
 

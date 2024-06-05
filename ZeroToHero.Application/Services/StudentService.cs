@@ -2,6 +2,8 @@
 using System.Net;
 using ZeroToHero.Application.Common.DTOs.StudentDtos;
 using ZeroToHero.Application.Common.Exceptions;
+using ZeroToHero.Application.Common.Extentions;
+using ZeroToHero.Application.Common.Utils;
 using ZeroToHero.Application.Interfaces;
 using ZeroToHero.Data.Interfaces;
 using ZeroToHero.Domain.Entities;
@@ -22,9 +24,11 @@ public class StudentService(IUnitOfWork unitOfWork,
         await _unitOfWork.Students.DeleteAsync(student);
     }
 
-    public async Task<List<StudentDto>> GetAllAsync()
+    public async Task<IEnumerable<StudentDto>> GetAllAsync(PaginationParams @params)
     {
-        var students = await _unitOfWork.Students.GetAllAsync();
+        var students = await _unitOfWork.Students.GetAllAsync()
+                                                                  .ToPagedListAsync(@params);
+
         return students.Select(x => _mapper.Map<StudentDto>(x)).ToList();
     }
 

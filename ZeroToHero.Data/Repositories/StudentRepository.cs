@@ -10,12 +10,11 @@ public class StudentRepository(AppDbContext dbContext) : GenericRepository<Stude
     public AppDbContext DbContext { get; } = dbContext;
 
 
-    public async Task<List<Student>> GetByNameAsync(string name)
+    public IQueryable<Student> GetByNameAsync(string name)
 
     {
-        var students = await DbContext.Students
-                                      .Where(s => s.FirstName.Contains(name) || s.LastName.Contains(name))
-                                      .ToListAsync();
+        var students = DbContext.Students
+                                       .Where(s => s.FirstName.Contains(name) || s.LastName.Contains(name));
         return students;
     }
 

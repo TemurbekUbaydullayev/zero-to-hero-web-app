@@ -17,9 +17,9 @@ public class GenericRepository<T>(AppDbContext dbContext)
         await _dbContext.SaveChangesAsync();
     }
 
-    public async Task<List<T>> GetAllAsync()
+    public IQueryable<T> GetAllAsync()
     {
-        var entities = await _dbSet.ToListAsync();
+        var entities = _dbSet.AsQueryable();
         return entities;
     }
 

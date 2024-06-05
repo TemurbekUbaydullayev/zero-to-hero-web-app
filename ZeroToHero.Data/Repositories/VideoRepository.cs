@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using ZeroToHero.Data.DbContexts;
+﻿using ZeroToHero.Data.DbContexts;
 using ZeroToHero.Data.Interfaces;
 using ZeroToHero.Domain.Entities;
 
@@ -9,11 +8,10 @@ public class VideoRepository(AppDbContext dbContext) : GenericRepository<Video>(
 {
     public AppDbContext DbContext { get; } = dbContext;
 
-    public async Task<List<Video>> GetByTitleAsync(string title)
+    public IQueryable<Video> GetByTitleAsync(string title)
     {
-        var videos = await DbContext.Videos
-                                    .Where(v => v.Title.Contains(title))
-                                    .ToListAsync();
+        var videos = DbContext.Videos
+                                   .Where(v => v.Title.Contains(title));
 
         return videos;
     }

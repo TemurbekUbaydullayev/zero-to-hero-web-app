@@ -11,5 +11,4 @@ public class Employee : BaseEntity
     public string Password { get; set; } = string.Empty;
     public Role Role { get; set; }
     public bool IsActive { get; set; }
-
 }

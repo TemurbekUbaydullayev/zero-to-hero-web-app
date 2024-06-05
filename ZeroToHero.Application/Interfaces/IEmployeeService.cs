@@ -5,7 +5,7 @@ namespace ZeroToHero.Application.Interfaces;
 
 public interface IEmployeeService
 {
-    Task<List<EmployeeDto>> GetAllAsync(PaginationParams @params);
+    Task<IEnumerable<EmployeeDto>> GetAllAsync(PaginationParams @params);
     Task<EmployeeDto> GetByIdAsync(int id);
     Task<EmployeeDto> GetByEmailAsync(string email);
     Task<EmployeeDto> GetByPhoneAsync(string phone);
