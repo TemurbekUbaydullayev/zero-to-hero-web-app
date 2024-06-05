@@ -44,8 +44,17 @@ public class StudentService(IUnitOfWork unitOfWork,
             throw new StatusCodeException(HttpStatusCode.NotFound, $"{dto.Email} was registered");
     }
 
-    public Task UpdateAsync(AddStudentDto dto)
+    public async Task UpdateAsync(UpdateStudentDto dto)
     {
-        throw new NotImplementedException();
+        var model = await _unitOfWork.Students.GetByIdAsync(dto.Id);
+        if (model is null)
+            throw new StatusCodeException(HttpStatusCode.NotFound, "Student not found");
+        var student = _mapper.Map<Student>(dto);
+        student.Id = dto.Id;
+        student.Created_At = DateTime.Now;
+        student.Password = model.Password;
+
+        await _unitOfWork.Students.UpdateAsync(student);
+        throw new StatusCodeException(HttpStatusCode.OK, "Student has been updated sucessfully");
     }
 }
