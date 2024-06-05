@@ -2,7 +2,7 @@
 
 namespace ZeroToHero.Application.Common.Exceptions;
 
-public class ValidatorException : StatusCodeExeption
+public class ValidatorException : StatusCodeException
 {
     public ValidatorException(string message)
         : base(HttpStatusCode.BadRequest, message)
