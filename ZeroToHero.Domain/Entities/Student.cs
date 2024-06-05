@@ -14,14 +14,4 @@ public class Student : BaseEntity
     public bool IsActive { get; set; }
     public bool IsVerified { get; set; }
     public int CourseId { get; set; }
-
-    public static explicit operator Student(ZeroToHero.Application.Common.DTOs.StudentDtos.UpdateStudentDto v)
-    {
-        throw new NotImplementedException();
-    }
-
-    public static explicit operator Student(ZeroToHero.Application.Common.DTOs.StudentDtos.UpdateStudentDto v)
-    {
-        throw new NotImplementedException();
-    }
 }

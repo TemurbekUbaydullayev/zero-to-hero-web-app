@@ -4,5 +4,5 @@ namespace ZeroToHero.Data.Interfaces;
 
 public interface ICourseRepository : IGenericRepository<Course>
 {
-    Task<List<Course>> GetByTitleAsync(string title);
+    IQueryable<Course> GetByTitleAsync(string title);
 }

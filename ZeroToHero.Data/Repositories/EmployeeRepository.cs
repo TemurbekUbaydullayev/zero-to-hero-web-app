@@ -9,11 +9,10 @@ public class EmployeeRepository(AppDbContext dbContext) : GenericRepository<Empl
     public AppDbContext DbContext { get; } = dbContext;
 
 
-    public async Task<List<Employee>> GetByNameAsync(string name)
+    public IQueryable<Employee> GetByNameAsync(string name)
     {
-        var employes = await DbContext.Employees
-                                      .Where(e => e.FirstName.Contains(name) || e.LastName.Contains(name))
-                                      .ToListAsync();
+        var employes = DbContext.Employees
+                                       .Where(e => e.FirstName.Contains(name) || e.LastName.Contains(name));
         return employes;
     }
 
