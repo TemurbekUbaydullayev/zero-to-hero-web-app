@@ -1,68 +1,38 @@
-﻿using AutoMapper;
-using System.Net;
+using AutoMapper;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
+using Newtonsoft.Json;
 using ZeroToHero.Application.Common.DTOs.ResumeDtos;
-using ZeroToHero.Application.Common.Exceptions;
-using ZeroToHero.Application.Common.Extentions;
-using ZeroToHero.Application.Common.Utils;
 using ZeroToHero.Application.Interfaces;
 using ZeroToHero.Data.Interfaces;
 using ZeroToHero.Domain.Entities;
 
 namespace ZeroToHero.Application.Services;
-public class ResumeService(IUnitOfWork unitOfWork,
+
+public class ResumeService(IFileService fileService,
+                           IUnitOfWork unitOf,
                            IMapper mapper) : IResumeService
 {
-    private readonly IUnitOfWork _unitOfWork = unitOfWork;
+    private readonly IFileService _fileService = fileService;
+    private readonly IUnitOfWork _unitOf = unitOf;
     private readonly IMapper _mapper = mapper;
 
     public async Task CreateAsync(AddResumeDto dto)
     {
         var resume = _mapper.Map<Resume>(dto);
-        await _unitOfWork.Resumes.CreateAsync(resume);
+
+        await _unitOf.Resumes.CreateAsync(resume);
+
+        //var json = JsonConvert.SerializeObject(resume);
+
+        //return (data: json, fileName: $"{resume.FirstName}-{resume.LastName}-CV.pdf");
     }
 
-    public async Task DeleteAsync(int id)
+    public async Task<(string data, string filename)> GetCVAsync(string email)
     {
-        var resume = await _unitOfWork.Resumes.GetByIdAsync(id);
-        if (resume is null)
-            throw new StatusCodeException(HttpStatusCode.NotFound, "Resume Not Found");
-        await _unitOfWork.Resumes.DeleteAsync(resume);
-    }
+        var resume = await _unitOf.Resumes.GetByEmailAsync(email);
+        var json = JsonConvert.SerializeObject(resume);
 
-    public async Task<IEnumerable<ResumeDto>> GetAllAsync(PaginationParams @params)
-    {
-        var resumes = await _unitOfWork.Resumes.GetAllAsync().ToPagedListAsync(@params);
-
-        return resumes.Select(p => _mapper.Map<ResumeDto>(p));
-    }
-
-    public async Task<ResumeDto?> GetByIdAsync(int id)
-    {
-        var resume = await _unitOfWork.Resumes.GetByIdAsync(id);
-        if (resume is null)
-            throw new StatusCodeException(HttpStatusCode.NotFound, "Resume not found");
-        return _mapper.Map<ResumeDto>(resume);
-    }
-
-    public async Task UpdateAsync(ResumeDto dto)
-    {
-        var resume = await _unitOfWork.Resumes.GetByIdAsync(dto.Id);
-        if (resume is null)
-            throw new StatusCodeException(HttpStatusCode.NotFound, "Resume not found");
-        var resumes = _mapper.Map<Resume>(dto);
-        resumes.Id = dto.Id;
-        resumes.Created_At = DateTime.Now;
-        resumes.Email = dto.Email;
-        resumes.Phone = dto.Phone;
-        resume.FirstName = dto.FirstName;
-        resumes.LastName = dto.LastName;
-        resumes.Summary = dto.Summary;
-        resumes.Links = dto.Links;
-        resumes.Skills = dto.Skills;
-        resumes.Education = dto.Education;
-        resumes.Experience = dto.Experience;
-
-        await _unitOfWork.Resumes.UpdateAsync(resumes);
-        throw new StatusCodeException(HttpStatusCode.OK, "Resume has been updated sucessfully");
+        return (data: json, filename: $"{resume.FirstName}-{resume.LastName}-CV.pdf");
     }
 }

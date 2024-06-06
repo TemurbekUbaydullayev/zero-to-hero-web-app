@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using ZeroToHero.Application.Common.DTOs.CourseDtos;
 using ZeroToHero.Application.Common.DTOs.EmployeeDtos;
+using ZeroToHero.Application.Common.DTOs.ResumeDtos;
 using ZeroToHero.Application.Common.DTOs.StudentDtos;
 using ZeroToHero.Application.Common.DTOs.VideoDtos;
 using ZeroToHero.Domain.Entities;
@@ -22,5 +23,7 @@ public class MapperProfile : Profile
 
         CreateMap<AddStudentDto, Student>();
         CreateMap<Student, StudentDto>().ReverseMap();
+
+        CreateMap<AddResumeDto, Resume>();
     }
 }

@@ -26,10 +26,11 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddTransient<IUnitOfWork, UnitOfWrok>();
 
 // Services
+builder.Services.AddTransient<IResumeService, ResumeService>();
 builder.Services.AddTransient<IEmailService, EmailService>();
+builder.Services.AddTransient<IFileService, FileService>();
 builder.Services.AddTransient<IStudentService, StudentService>();
 builder.Services.AddTransient<IAuthManager, AuthManager>();
-builder.Services.AddTransient<MapperProfile>();
 
 
 //---> Mappers

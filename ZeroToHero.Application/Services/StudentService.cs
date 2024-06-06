@@ -1,6 +1,4 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Http;
-using System.Globalization;
 using System.Net;
 using ZeroToHero.Application.Common.DTOs.StudentDtos;
 using ZeroToHero.Application.Common.Exceptions;
@@ -9,7 +7,6 @@ using ZeroToHero.Application.Common.Utils;
 using ZeroToHero.Application.Interfaces;
 using ZeroToHero.Data.Interfaces;
 using ZeroToHero.Domain.Entities;
-using static Org.BouncyCastle.Bcpg.Attr.ImageAttrib;
 
 namespace ZeroToHero.Application.Services;
 public class StudentService(IUnitOfWork unitOfWork,
