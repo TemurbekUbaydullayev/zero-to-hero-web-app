@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 using Newtonsoft.Json;

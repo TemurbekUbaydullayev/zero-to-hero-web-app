@@ -1,4 +1,6 @@
 ﻿using ZeroToHero.Application.Common.DTOs.ResumeDtos;
+using ZeroToHero.Application.Common.Utils;
+
 
 namespace ZeroToHero.Application.Interfaces;
 
