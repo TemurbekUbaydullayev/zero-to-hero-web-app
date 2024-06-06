@@ -13,16 +13,19 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="13.0.1" />
+    <PackageReference Include="iTextSharp" Version="5.5.13.3" />
     <PackageReference Include="MailKit" Version="4.6.0" />
     <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="5.0.17" />
     <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="7.6.0" />
     <PackageReference Include="MimeKit" Version="4.6.0" />
+    <PackageReference Include="Serilog" Version="4.0.0" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.6.0" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Common\Validators\" />
+    <Folder Include="wwwroot\" />
   </ItemGroup>
 
 </Project>
