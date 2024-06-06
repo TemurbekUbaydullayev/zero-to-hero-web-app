@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using System.Net;
+using System.Security.AccessControl;
 using ZeroToHero.Application.Common.DTOs.StudentDtos;
 using ZeroToHero.Application.Common.Exceptions;
 using ZeroToHero.Application.Interfaces;
@@ -44,8 +45,8 @@ public class StudentService(IUnitOfWork unitOfWork,
             throw new StatusCodeException(HttpStatusCode.NotFound, $"{dto.Email} was registered");
     }
 
-    public Task UpdateAsync(AddStudentDto dto)
+    public async Task UpdateAsync(AddStudentDto dto)
     {
-        throw new NotImplementedException();
+       
     }
 }
