@@ -8,5 +8,6 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
     public DbSet<Course> Courses {get;set;}
     public DbSet<Employee> Employees {get;set;}
     public DbSet<Student> Students {get;set;}
+    public DbSet<Resume> Resumes { get; set; }
     public DbSet<Video> Videos {get;set;}
 }

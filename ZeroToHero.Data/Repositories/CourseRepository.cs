@@ -9,11 +9,10 @@ public class CourseRepository(AppDbContext dbContext) : GenericRepository<Course
 {
     public AppDbContext DbContext { get; } = dbContext;
 
-    public async Task<List<Course>> GetByTitleAsync(string title)
+    public IQueryable<Course> GetByTitleAsync(string title)
     {
-        var courses = await DbContext.Courses
-                                     .Where(c => c.Title.Contains(title))
-                                     .ToListAsync();
+        var courses = DbContext.Courses
+                                     .Where(c => c.Title.Contains(title));
 
         return courses;
     }

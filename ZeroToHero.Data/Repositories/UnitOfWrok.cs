@@ -5,16 +5,16 @@ namespace ZeroToHero.Data.Repositories;
 
 public class UnitOfWrok(AppDbContext dbContext) : IUnitOfWork
 {
-    public AppDbContext DbContext { get; } = dbContext;
+    private readonly AppDbContext _dbContext = dbContext;
 
-    public ICourseRepository Courses => throw new NotImplementedException();
+    public ICourseRepository Courses => new CourseRepository(_dbContext);
 
-    public IEmployeeRepository Employes => throw new NotImplementedException();
+    public IEmployeeRepository Employes => new EmployeeRepository(_dbContext);
 
-    public IResumeRepository Resumes => throw new NotImplementedException();
+    public IResumeRepository Resumes => new ResumeRepository(_dbContext);
 
-    public IStudentRepository Students => throw new NotImplementedException();
+    public IStudentRepository Students => new StudentRepository(_dbContext);
 
-    public IVideoRepository Videos => throw new NotImplementedException();
+    public IVideoRepository Videos => new VideoRepository(_dbContext);
 
 }
