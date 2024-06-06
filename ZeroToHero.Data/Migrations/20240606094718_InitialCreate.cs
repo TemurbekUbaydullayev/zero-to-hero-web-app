@@ -56,6 +56,33 @@ namespace ZeroToHero.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Resumes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    FirstName = table.Column<string>(type: "text", nullable: false),
+                    LastName = table.Column<string>(type: "text", nullable: false),
+                    Age = table.Column<int>(type: "integer", nullable: false),
+                    Phone = table.Column<string>(type: "text", nullable: false),
+                    Email = table.Column<string>(type: "text", nullable: false),
+                    Experience = table.Column<byte>(type: "smallint", nullable: false),
+                    Location = table.Column<string>(type: "text", nullable: false),
+                    Summary = table.Column<string>(type: "text", nullable: false),
+                    Links = table.Column<string[]>(type: "text[]", nullable: true),
+                    Education = table.Column<string[]>(type: "text[]", nullable: true),
+                    Skills = table.Column<string[]>(type: "text[]", nullable: false),
+                    Languages = table.Column<string[]>(type: "text[]", nullable: false),
+                    FilePath = table.Column<string>(type: "text", nullable: false),
+                    Created_At = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    Updated_At = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Resumes", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Students",
                 columns: table => new
                 {
@@ -106,6 +133,9 @@ namespace ZeroToHero.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "Employees");
+
+            migrationBuilder.DropTable(
+                name: "Resumes");
 
             migrationBuilder.DropTable(
                 name: "Students");
