@@ -1,11 +1,16 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
+using System.Globalization;
 using System.Net;
 using System.Security.AccessControl;
 using ZeroToHero.Application.Common.DTOs.StudentDtos;
 using ZeroToHero.Application.Common.Exceptions;
+using ZeroToHero.Application.Common.Extentions;
+using ZeroToHero.Application.Common.Utils;
 using ZeroToHero.Application.Interfaces;
 using ZeroToHero.Data.Interfaces;
 using ZeroToHero.Domain.Entities;
+using static Org.BouncyCastle.Bcpg.Attr.ImageAttrib;
 
 namespace ZeroToHero.Application.Services;
 public class StudentService(IUnitOfWork unitOfWork,
@@ -23,9 +28,11 @@ public class StudentService(IUnitOfWork unitOfWork,
         await _unitOfWork.Students.DeleteAsync(student);
     }
 
-    public async Task<List<StudentDto>> GetAllAsync()
+    public async Task<IEnumerable<StudentDto>> GetAllAsync(PaginationParams @params)
     {
-        var students = await _unitOfWork.Students.GetAllAsync();
+        var students = await _unitOfWork.Students.GetAllAsync()
+                                                                  .ToPagedListAsync(@params);
+
         return students.Select(x => _mapper.Map<StudentDto>(x)).ToList();
     }
 
@@ -41,12 +48,24 @@ public class StudentService(IUnitOfWork unitOfWork,
     public async Task RegisterAsync(AddStudentDto dto)
     {
         var student = await _unitOfWork.Students.GetByEmailAsync(dto.Email);
-        if (student is null)
+        if (student is not null)
             throw new StatusCodeException(HttpStatusCode.NotFound, $"{dto.Email} was registered");
+        var entity = _mapper.Map<Student>(dto);
+        entity.DateOfBirth = entity.DateOfBirth.ToUniversalTime();
+        await _unitOfWork.Students.CreateAsync(entity);
     }
 
-    public async Task UpdateAsync(AddStudentDto dto)
+    public async Task UpdateAsync(UpdateStudentDto dto)
     {
-       
+        var model = await _unitOfWork.Students.GetByIdAsync(dto.Id);
+        if (model is null)
+            throw new StatusCodeException(HttpStatusCode.NotFound, "Student not found");
+        var student = _mapper.Map<Student>(dto);
+        student.Id = dto.Id;
+        student.Created_At = DateTime.Now;
+        student.Password = model.Password;
+
+        await _unitOfWork.Students.UpdateAsync(student);
+        throw new StatusCodeException(HttpStatusCode.OK, "Student has been updated sucessfully");
     }
 }
