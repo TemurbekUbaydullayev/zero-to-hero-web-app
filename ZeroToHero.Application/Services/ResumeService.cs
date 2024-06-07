@@ -31,7 +31,7 @@ public class ResumeService(IFileService fileService,
     public async Task<(string data, string filename)> GetCVAsync(string email)
     {
         var resume = await _unitOf.Resumes.GetByEmailAsync(email);
-        var json = JsonConvert.SerializeObject(resume);
+        var json = JsonConvert.SerializeObject(resume, Formatting.Indented);
 
         return (data: json, filename: $"{resume.FirstName}-{resume.LastName}-CV.pdf");
     }
