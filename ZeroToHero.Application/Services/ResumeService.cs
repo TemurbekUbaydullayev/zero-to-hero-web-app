@@ -1,6 +1,4 @@
 using AutoMapper;
-using iTextSharp.text;
-using iTextSharp.text.pdf;
 using Newtonsoft.Json;
 using ZeroToHero.Application.Common.DTOs.ResumeDtos;
 using ZeroToHero.Application.Interfaces;
