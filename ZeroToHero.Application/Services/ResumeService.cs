@@ -7,11 +7,9 @@ using ZeroToHero.Domain.Entities;
 
 namespace ZeroToHero.Application.Services;
 
-public class ResumeService(IFileService fileService,
-                           IUnitOfWork unitOf,
+public class ResumeService(IUnitOfWork unitOf,
                            IMapper mapper) : IResumeService
 {
-    private readonly IFileService _fileService = fileService;
     private readonly IUnitOfWork _unitOf = unitOf;
     private readonly IMapper _mapper = mapper;
 
@@ -20,10 +18,6 @@ public class ResumeService(IFileService fileService,
         var resume = _mapper.Map<Resume>(dto);
 
         await _unitOf.Resumes.CreateAsync(resume);
-
-        //var json = JsonConvert.SerializeObject(resume);
-
-        //return (data: json, fileName: $"{resume.FirstName}-{resume.LastName}-CV.pdf");
     }
 
     public async Task<(string data, string filename)> GetCVAsync(string email)
