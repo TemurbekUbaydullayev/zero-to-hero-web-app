@@ -35,12 +35,13 @@ public class PdfController(IResumeService service,
 
         if (response.IsSuccessStatusCode)
         {
-            return Ok();
+            var byteArray = await response.Content.ReadAsByteArrayAsync();
+            var fileName = response.Content.Headers.ContentDisposition?.FileName ?? "downloaded.pdf";
+
+            return File(byteArray, "application/pdf", fileName);
         }
-        else
-        {
-            return StatusCode((int)response.StatusCode, response.ReasonPhrase);
-        }
+
+        return StatusCode((int)response.StatusCode, response.ReasonPhrase);
     }
     [HttpPost("file")]
     public async Task<IActionResult> SaveFileAsync(IFormFile file)
